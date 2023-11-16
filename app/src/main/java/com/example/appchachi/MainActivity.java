@@ -1,7 +1,11 @@
 package com.example.appchachi;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import com.example.appchachi.R;
+import com.example.appchachi.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -10,38 +14,26 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment selectedFragment = null;
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-                switch (item.getItemId()) {
-                    case R.id.navi_dashboard:
-                        selectedFragment = new DashboardFragment();
-                        break;
-                    case R.id.navi_messages:
-                        selectedFragment = new MesseagesFragment();
-                        break;
-                    case R.id.navi_calendar:
-                        selectedFragment = new CalendarFragment();
-                        break;
-                    case R.id.navi_chachi_group:
-                        selectedFragment = new ChachiGroupFragment();
-                        break;
-                }
-
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, selectedFragment);
-                transaction.commit();
-                return true;
+        binding.bottomNavigation.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.navi_messages) {
+                Intent intent = new Intent(MainActivity.this, MessagesActivity.class);
+                startActivity(intent);
+            } else if (item.getItemId() == R.id.navi_chachi_group) {
+                // Handle the Chachi Group menu item click
+            } else if (item.getItemId() == R.id.navi_calendar) {
+                // Handle the calendar menu item click
             }
+            return true;
         });
-        // Set the initial fragment
-        bottomNavigationView.setSelectedItemId(R.id.navi_dashboard);
+
     }
 }
