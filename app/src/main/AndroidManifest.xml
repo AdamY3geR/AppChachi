@@ -13,11 +13,21 @@
         android:theme="@style/Theme.AppChachi"
         tools:targetApi="31">
         <activity
-            android:name=".MessagesActivity"
+            android:name=".CalendarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChachiGroupActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="false" />
+        <activity
+            android:name=".MessagesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Design.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -25,12 +25,14 @@ public class MainActivity extends AppCompatActivity {
 
         binding.bottomNavigation.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.navi_messages) {
-                Intent intent = new Intent(MainActivity.this, MessagesActivity.class);
+                Intent intent = new Intent(MainActivity.this, MesseagesFragment.class);
                 startActivity(intent);
             } else if (item.getItemId() == R.id.navi_chachi_group) {
-                // Handle the Chachi Group menu item click
+                Intent intent = new Intent(MainActivity.this, ChachiGroupFragment.class);
+                startActivity(intent);
             } else if (item.getItemId() == R.id.navi_calendar) {
-                // Handle the calendar menu item click
+                Intent intent = new Intent(MainActivity.this, CalendarFragment.class);
+                startActivity(intent);
             }
             return true;
         });
