@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/navi_dashboard"
-        android:icon="@drawable/baseline_dashboard_24"
-        android:title="Dashboard" />
+        android:id="@+id/navi_security"
+        android:icon="@drawable/baseline_security_24"
+        android:title="@string/security" />
     <item
-        android:id="@+id/navi_messages"
-        android:icon="@drawable/baseline_sms_24"
-        android:title="Messages" />
+        android:id="@+id/navi_medic"
+        android:icon="@drawable/baseline_medical_services_24"
+        android:title="@string/medic" />
     <item
-        android:id="@+id/navi_calendar"
-        android:icon="@drawable/baseline_calendar_month_24"
-        android:title="Calendar" />
+        android:id="@+id/navi_fire"
+        android:icon="@drawable/baseline_local_fire_department_24"
+        android:title="@string/fire" />
     <item
-        android:id="@+id/navi_chachi_group"
-        android:icon="@drawable/baseline_group_24"
-        android:title="Chachi Group" />
+        android:id="@+id/navi_map"
+        android:icon="@drawable/baseline_map_24"
+        android:title="Map"
+        tools:ignore="HardcodedText" />
 </menu>

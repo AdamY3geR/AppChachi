@@ -8,52 +8,55 @@
 
     <TextView
         android:id="@+id/tv_memberName"
-        android:layout_width="60dp"
-        android:layout_height="58dp"
+        android:layout_width="164dp"
+        android:layout_height="53dp"
         android:text="Member Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.863"
+        app:layout_constraintHorizontal_bias="0.384"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tv_memberPhone"
-        android:layout_width="60dp"
-        android:layout_height="58dp"
-        android:text="Phone Number"
+        android:layout_width="144dp"
+        android:layout_height="53dp"
+        android:text="@string/phone_number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.692"
+        app:layout_constraintHorizontal_bias="0.989"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-
     <ImageButton
         android:id="@+id/ibtn_call"
-        android:layout_width="82dp"
-        android:layout_height="58dp"
+        android:layout_width="41dp"
+        android:layout_height="56dp"
+        android:contentDescription="Call Member"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintHorizontal_bias="0.113"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@android:drawable/ic_menu_call" />
+        app:srcCompat="@drawable/phone"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <ImageButton
-        android:id="@+id/ibtn_sms"
-        android:layout_width="82dp"
-        android:layout_height="58dp"
+        android:id="@+id/ibtn_whatsapp"
+        android:layout_width="42dp"
+        android:layout_height="56dp"
+        android:contentDescription="Send WhatsApp Message"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.24"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/baseline_sms_24" />
+        app:srcCompat="@drawable/whatsapp"
+        android:scaleType="fitCenter"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

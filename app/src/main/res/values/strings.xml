@@ -2,4 +2,13 @@
     <string name="app_name">App Chachi</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="security">Security</string>
+    <string name="medic">Medic</string>
+    <string name="fire">Fire</string>
+    <string name="map">Map</string>
+    <string name="security_fragment">Security Fragment</string>
+    <string name="medic_fragment">Medic Fragment</string>
+    <string name="fire_fragment">Fire Fragment</string>
+    <string name="map_fragment">Map Fragment</string>
 </resources>

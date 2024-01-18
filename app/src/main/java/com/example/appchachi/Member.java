@@ -1,14 +1,14 @@
 package com.example.appchachi;
 
 public class Member {
-    private int id;
+    private String id;
     private String name;
-    private int phone;
+    private String phone;
     private String email;
     private String role;
     private boolean status;
 
-    public Member(int id, String name, int phone, String email, String role, boolean status) {
+    public Member(String id, String name, String phone, String email, String role, boolean status) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -17,11 +17,11 @@ public class Member {
         this.status = status;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -33,11 +33,11 @@ public class Member {
         this.name = name;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
