@@ -19,11 +19,11 @@ import androidx.core.content.ContextCompat;
 
 import java.util.List;
 
-public class SecurityAdapter extends ArrayAdapter<Security> {
+public class MedicAdapter extends ArrayAdapter<Medic> {
     private static final int REQUEST_CALL_PHONE_PERMISSION = 1;
     Context context;
-    List<Security> objects;
-    public SecurityAdapter(Context context, int resource, int textViewResourceId, List<Security> objects) {
+    List<Medic> objects;
+    public MedicAdapter(Context context, int resource, int textViewResourceId, List<Medic> objects) {
         super(context, resource, textViewResourceId, objects);
 
         this.context=context;
@@ -40,7 +40,7 @@ public class SecurityAdapter extends ArrayAdapter<Security> {
         TextView tvMemberPhone = (TextView)view.findViewById(R.id.tv_memberPhone);
         ImageButton ibtnCall = (ImageButton)view.findViewById(R.id.ibtn_call);
         ImageButton ibtnWhatsapp = (ImageButton)view.findViewById(R.id.ibtn_whatsapp);
-        Security temp = objects.get(position);
+        Medic temp = objects.get(position);
 
         ibtnCall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,9 +52,9 @@ public class SecurityAdapter extends ArrayAdapter<Security> {
                             new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PHONE_PERMISSION);
                 }
                 else{
-                Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
-                if (context != null)
-                    context.startActivity(dialIntent);
+                    Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+                    if (context != null)
+                        context.startActivity(dialIntent);
                 }
             }
         });

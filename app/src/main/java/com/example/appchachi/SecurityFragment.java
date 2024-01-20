@@ -26,7 +26,7 @@ public class SecurityFragment extends Fragment {
         Security s1= new Security("326900503","Adam Jose Yeger","0537156797","adamyeger@gmail.com","car patrol",true,"BetLehem MainGate");
         Security s2= new Security("326900503","Maya Yeger","0533314929","adamyeger@gmail.com","car patrol",true,"BetLehem MainGate");
 
-        securityList = new ArrayList<Security>();
+        securityList = new ArrayList<>();
         securityList.add(s1);
         securityList.add(s2);
         securityAdapter = new SecurityAdapter(requireContext(),0,0,securityList);
