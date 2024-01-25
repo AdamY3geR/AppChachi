@@ -23,7 +23,7 @@ public class MedicFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_medic, container, false);
         lv_medic= rootView.findViewById(R.id.lv_medic);
-        Medic m1 = new Medic("326900503", "Rofe Tov", "0546686669", "Yeger180@gmail.com", "paramedic", true, "defibrilator");
+        Medic m1 = new Medic("326900503", "Rofe Tov", "0506590083", "Yeger180@gmail.com", "paramedic", true, "defibrilator");
         medicList = new ArrayList<>();
         medicList.add(m1);
         medicAdapter = new MedicAdapter(requireContext(),0,0,medicList);
