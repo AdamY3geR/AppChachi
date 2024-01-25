@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import java.util.ArrayList;
 
@@ -34,7 +35,13 @@ public class SecurityFragment extends Fragment {
         if (lv_security != null) {
             lv_security.setAdapter(securityAdapter);
         }
-        // Inflate the layout for this fragment
+
+        lv_security.setOnClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
         return rootView;
     }
 }
