@@ -1,5 +1,6 @@
 package com.example.appchachi;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -38,7 +39,9 @@ public class SecurityFragment extends Fragment {
 
         lv_security.setOnClickListener(new AdapterView.OnItemClickListener(){
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                lastSelected = securityAdapter.getItem(position);
+                Intent intent = new Intent(SecurityFragment.this, EditActivity.class);
 
             }
         });

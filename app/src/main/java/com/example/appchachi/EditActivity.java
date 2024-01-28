@@ -20,15 +20,15 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-        et_email=(EditText) findViewById(R.id.et_email);
-        et_role=(EditText) findViewById(R.id.et_Role);
-        et_id=(EditText) findViewById(R.id.et_Id);
-        et_phone=(EditText) findViewById(R.id.et_Phone);
-        et_FullName=(EditText) findViewById(R.id.et_FullName);
-        btn_cancel_lv=(Button) findViewById(R.id.btn_cancel_lv);
-        btn_save_lv=(Button) findViewById(R.id.btn_save_lv);
-        //btn_save_lv.setOnClickListener(this);
-        //btn_cancel_lv.setOnClickListener(this);
+        et_email= findViewById(R.id.et_email);
+        et_role= findViewById(R.id.et_Role);
+        et_id= findViewById(R.id.et_Id);
+        et_phone= findViewById(R.id.et_Phone);
+        et_FullName= findViewById(R.id.et_FullName);
+        btn_cancel_lv= findViewById(R.id.btn_cancel_lv);
+        btn_save_lv= findViewById(R.id.btn_save_lv);
+        btn_save_lv.setOnClickListener(this);
+        btn_cancel_lv.setOnClickListener(this);
 
         Intent intent = getIntent();
         if (intent.getExtras()!=null){
@@ -61,6 +61,10 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
             }
             else
                 Toast.makeText(this,"please fill all fields", Toast.LENGTH_LONG).show();
+        }
+        else if (btn_cancel_lv==v){
+            setResult(RESULT_CANCELED,null);
+            finish();
         }
     }
 }
