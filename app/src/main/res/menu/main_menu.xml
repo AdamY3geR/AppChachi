@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_group"
+        android:title="Menu"
+        app:showAsAction="always"
+        android:icon="@drawable/baseline_menu_24"
+        tools:ignore="AlwaysShowAction,HardcodedText">
+
+        <menu>
+            <item
+                android:id="@+id/action_announcement"
+                android:title="Send Announcement"
+                app:showAsAction="ifRoom"
+                tools:ignore="HardcodedText" />
+        </menu>
+    </item>
+
+</menu>

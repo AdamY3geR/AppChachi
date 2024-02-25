@@ -1,12 +1,10 @@
 package com.example.appchachi;
 
-import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import java.util.ArrayList;
 
@@ -15,8 +13,6 @@ public class SecurityFragment extends Fragment {
     ListView lv_security;
     ArrayList<Security> securityList;
     SecurityAdapter securityAdapter;
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,14 +33,6 @@ public class SecurityFragment extends Fragment {
             lv_security.setAdapter(securityAdapter);
         }
 
-        lv_security.setOnClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                lastSelected = securityAdapter.getItem(position);
-                Intent intent = new Intent(SecurityFragment.this, EditActivity.class);
-
-            }
-        });
         return rootView;
     }
 }

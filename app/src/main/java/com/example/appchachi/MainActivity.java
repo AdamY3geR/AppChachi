@@ -1,6 +1,10 @@
 package com.example.appchachi;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import com.example.appchachi.databinding.ActivityMainBinding;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -35,11 +39,42 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.menu.action_announcement:
+                // Handle the announcement item click
+                sendAnnouncement();
+                return true;
+            // Add more cases for other items in the future
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void sendAnnouncement() {
+        // You can replace this with your announcement message
+        String announcementMessage = "This is an important announcement!";
+
+        // Broadcast the announcement message
+        Intent broadcastIntent = new Intent("com.example.appchachi.ANNOUNCEMENT_ACTION");
+        broadcastIntent.putExtra("announcementMessage", announcementMessage);
+        sendBroadcast(broadcastIntent);
+
+        // Start the service if needed
+        startService(new Intent(this, AnnouncementService.class));
+    }
+
 
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout_navigation,fragment);
         fragmentTransaction.commit();
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
     }
 }
