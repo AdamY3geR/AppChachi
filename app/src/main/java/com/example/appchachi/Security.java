@@ -20,5 +20,10 @@ public class Security extends Member{
         this.position = position;
     }
 
-
+    @Override
+    public String toString() {
+        return "Security{" +
+                "position='" + position + '\'' +
+                '}';
+    }
 }

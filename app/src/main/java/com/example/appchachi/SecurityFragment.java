@@ -1,11 +1,18 @@
 package com.example.appchachi;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 import java.util.ArrayList;
 
 
@@ -13,6 +20,8 @@ public class SecurityFragment extends Fragment {
     ListView lv_security;
     ArrayList<Security> securityList;
     SecurityAdapter securityAdapter;
+    Security lastSelected;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,7 +41,6 @@ public class SecurityFragment extends Fragment {
         if (lv_security != null) {
             lv_security.setAdapter(securityAdapter);
         }
-
         return rootView;
     }
 }

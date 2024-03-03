@@ -41,16 +41,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.menu.action_announcement:
-                // Handle the announcement item click
-                sendAnnouncement();
-                return true;
+        if (item.getItemId() == R.id.action_announcement) {
+            sendAnnouncement();
+            return true;
             // Add more cases for other items in the future
-            default:
-                return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
+
 
     private void sendAnnouncement() {
         // You can replace this with your announcement message

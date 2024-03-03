@@ -14,7 +14,7 @@
             <item
                 android:id="@+id/action_announcement"
                 android:title="Send Announcement"
-                app:showAsAction="ifRoom"
+                app:showAsAction="always"
                 tools:ignore="HardcodedText" />
         </menu>
     </item>

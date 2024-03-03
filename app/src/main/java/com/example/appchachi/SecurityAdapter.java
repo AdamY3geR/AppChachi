@@ -41,6 +41,11 @@ public class SecurityAdapter extends ArrayAdapter<Security> {
         ImageButton ibtnCall = (ImageButton)view.findViewById(R.id.ibtn_call);
         ImageButton ibtnWhatsapp = (ImageButton)view.findViewById(R.id.ibtn_whatsapp);
         Security temp = objects.get(position);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.custom_layout_members, parent, false);
+        }
+        convertView.setClickable(true);
+        convertView.setFocusable(true);
 
         ibtnCall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,5 +91,9 @@ public class SecurityAdapter extends ArrayAdapter<Security> {
         if (context != null) {
             context.startActivity(sendIntent);
         }
+    }
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 }
