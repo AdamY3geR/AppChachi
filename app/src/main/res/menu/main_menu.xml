@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_group"
+        android:id="@+id/main_menu"
         android:title="Menu"
         app:showAsAction="always"
         android:icon="@drawable/baseline_menu_24"
@@ -13,9 +13,9 @@
         <menu>
             <item
                 android:id="@+id/action_announcement"
-                android:title="Send Announcement"
-                app:showAsAction="always"
+                android:title="Announcements"
                 tools:ignore="HardcodedText" />
+
         </menu>
     </item>
 

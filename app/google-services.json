@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "919117495019",
+    "project_id": "chachi-app-d24e1",
+    "storage_bucket": "chachi-app-d24e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919117495019:android:f97325d7ebcb0f846a1cae",
+        "android_client_info": {
+          "package_name": "com.example.appchachi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYuwV8tOf9Kln6jJ7tuWB7RxmgDvy5jGc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -11,4 +11,7 @@
     <string name="medic_fragment">Medic Fragment</string>
     <string name="fire_fragment">Fire Fragment</string>
     <string name="map_fragment">Map Fragment</string>
+    <string name="from">From:</string>
+    <string name="enter_sender_name">Enter sender name</string>
+    <string name="create_announcement">Create Announcement</string>
 </resources>
