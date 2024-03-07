@@ -1,13 +1,13 @@
 package com.example.appchachi;
 
 public class Medic extends Member{
-    public Medic(String id, String name, String phone, String email, String role, boolean status) {
-        super(id, name, phone, email, role, status);
+    public Medic(String id, String name, String phone, String email, boolean status, boolean isAdmin) {
+        super(id, name, phone, email, status, isAdmin);
     }
     private String equipment;
 
-    public Medic(String id, String name, String phone, String email, String role, boolean status, String equipment) {
-        super(id, name, phone, email, role, status);
+    public Medic(String id, String name, String phone, String email, boolean status, String equipment, boolean isAdmin) {
+        super(id, name, phone, email, status, isAdmin);
         this.equipment = equipment;
     }
 

@@ -5,16 +5,17 @@ public class Member {
     private String name;
     private String phone;
     private String email;
-    private String role;
     private boolean status;
 
-    public Member(String id, String name, String phone, String email, String role, boolean status) {
+    private Boolean isAdmin;
+
+    public Member(String id, String name, String phone, String email, boolean status, boolean isAdmin) {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.role = role;
         this.status = status;
+        this.isAdmin = isAdmin;
     }
 
     public String getId() {
@@ -49,14 +50,6 @@ public class Member {
         this.email = email;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public boolean isStatus() {
         return status;
     }
@@ -65,6 +58,15 @@ public class Member {
         this.status = status;
     }
 
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
+    }
+
+
     @Override
     public String toString() {
         return "Member{" +
@@ -72,7 +74,6 @@ public class Member {
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
-                ", role='" + role + '\'' +
                 ", status=" + status +
                 '}';
     }

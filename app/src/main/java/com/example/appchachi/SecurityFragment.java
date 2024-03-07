@@ -30,8 +30,8 @@ public class SecurityFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_security, container, false);
         lv_security= rootView.findViewById(R.id.lv_security);
-        Security s1= new Security("326900503","Adam Jose Yeger","0537156797","adamyeger@gmail.com","car patrol",true,"BetLehem MainGate");
-        Security s2= new Security("326900503","Maya Yeger","0533314929","adamyeger@gmail.com","car patrol",true,"BetLehem MainGate");
+        Security s1= new Security("326900503","Adam Jose Yeger","0537156797","adamyeger@gmail.com",true,true);
+        Security s2= new Security("326900503","Maya Yeger","0533314929","adamyeger@gmail.com",true,false);
 
         securityList = new ArrayList<>();
         securityList.add(s1);
