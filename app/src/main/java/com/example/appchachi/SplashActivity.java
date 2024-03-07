@@ -10,17 +10,24 @@ import android.os.Handler;
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
 
+    /**
+     * Initializes the activity.
+     * Sets the content view and delays the start of the MainActivity.
+     *
+     * @param savedInstanceState The saved instance state bundle.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-
-
+        // Use Handler to delay the start of the MainActivity
         new Handler().postDelayed(() -> {
+            // Create an Intent to start the MainActivity
             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(intent);
+            // Finish the SplashActivity to prevent it from being shown again
             finish();
-        },2000);
+        }, 2000); // Delay for 2 seconds
     }
 }

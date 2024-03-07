@@ -1,3 +1,6 @@
+/**
+ * Service class for handling Firebase Cloud Messaging (FCM) messages.
+ */
 package com.example.appchachi;
 
 import android.util.Log;
@@ -6,8 +9,14 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
+    // Tag for logging messages
     private static final String TAG = "MyFirebaseMsgService";
 
+    /**
+     * Called when a message is received.
+     *
+     * @param remoteMessage The message received from Firebase Cloud Messaging.
+     */
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
@@ -18,8 +27,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             // Handle the notification message.
             // You can display the notification, update UI, etc.
-            // For example, you can use NotificationCompat to create and display a notification:
-            // NotificationUtils.displayNotification(getApplicationContext(), remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
+            // For example, you can use NotificationUtils to create and display a notification:
+            // NotificationUtils.showNotification(getApplicationContext(), remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
         }
 
         // Check if the message contains data payload.
@@ -31,6 +40,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
     }
 
+    /**
+     * Called when a new token is generated.
+     *
+     * @param token The new registration token.
+     */
     @Override
     public void onNewToken(String token) {
         super.onNewToken(token);
