@@ -17,10 +17,23 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import java.util.List;
 
+/**
+ * Adapter class for displaying fire department personnel information.
+ */
 public class FireAdapter extends ArrayAdapter<Fire> {
     private static final int REQUEST_CALL_PHONE_PERMISSION = 1;
     Context context;
     List<Fire> objects;
+
+
+    /**
+     * Constructor for the FireAdapter.
+     *
+     * @param context The context of the application.
+     * @param resource The resource ID for a layout file containing a TextView to use when instantiating views.
+     * @param textViewResourceId The ID of the TextView within the layout resource to be populated.
+     * @param objects The list of fire department personnel to be displayed.
+     */
     public FireAdapter(Context context, int resource, int textViewResourceId, List<Fire> objects) {
         super(context, resource, textViewResourceId, objects);
 
@@ -28,7 +41,14 @@ public class FireAdapter extends ArrayAdapter<Fire> {
         this.objects=objects;
     }
 
-
+    /**
+     * Called when the ListView needs a new view to display a fire department personnel.
+     *
+     * @param position The position of the item within the adapter's data set.
+     * @param convertView The old view to reuse, if possible.
+     * @param parent The parent that this view will eventually be attached to.
+     * @return A View corresponding to the data at the specified position.
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -41,6 +61,11 @@ public class FireAdapter extends ArrayAdapter<Fire> {
         Fire temp = objects.get(position);
 
         ibtnCall.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Called when the call button is clicked.
+             *
+             * @param view The view that was clicked.
+             */
             @Override
             public void onClick(View view) {
                 String phoneNumber = temp.getPhone();
@@ -58,6 +83,11 @@ public class FireAdapter extends ArrayAdapter<Fire> {
         });
 
         ibtnWhatsapp.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Called when the WhatsApp button is clicked.
+             *
+             * @param view The view that was clicked.
+             */
             @Override
             public void onClick(View view) {
                 String phoneNumber = temp.getPhone();
@@ -72,6 +102,13 @@ public class FireAdapter extends ArrayAdapter<Fire> {
 
         return view;
     }
+
+
+    /**
+     * Opens WhatsApp with the provided phone number.
+     *
+     * @param phoneNumber The phone number to open WhatsApp with.
+     */
     private void openWhatsApp(String phoneNumber) {
         // Use the correct action for opening WhatsApp
         Intent sendIntent = new Intent("android.intent.action.SENDTO");

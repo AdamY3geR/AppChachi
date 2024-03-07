@@ -18,6 +18,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity for displaying announcements and creating new announcements.
+ */
 public class AnnouncementActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -29,7 +32,7 @@ public class AnnouncementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_announcement);
 
-
+        // Button to create a new announcement
         Button btnCreateAnnouncement = findViewById(R.id.btn_create_announcement);
         btnCreateAnnouncement.setOnClickListener(v -> openAnnouncementFormActivity());
 
@@ -44,12 +47,14 @@ public class AnnouncementActivity extends AppCompatActivity {
         // Set adapter to RecyclerView
         recyclerView.setAdapter(adapter);
 
-
+        // Populate announcements from Firebase Realtime Database
         populateAnnouncements();
     }
 
+    /**
+     * Fetches announcements from Firebase Realtime Database and populates the RecyclerView.
+     */
     private void populateAnnouncements() {
-        // Fetch announcements from Firebase Realtime Database
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("announcements");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -70,7 +75,9 @@ public class AnnouncementActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * Opens the AnnouncementFormActivity to create a new announcement.
+     */
     private void openAnnouncementFormActivity() {
         Intent intent = new Intent(this, AnnouncementFormActivity.class);
         startActivity(intent);
