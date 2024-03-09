@@ -3,9 +3,16 @@
  */
 package com.example.appchachi;
 
-//todo - enabling broadcast+nottification
+//todo - enabling broadcast+notification
 //todo - firebase ml messaging
-//todo - for admin user-> adding a create and send survey to listed memebers of the kita
+//todo - for admin user-> adding a create and send survey to listed members of the kita
+//todo - after adding authentication that it will add automatically to the lv
+//todo - announcement will show who sent it
+
+
+//todo - add remember me after login
+//todo - i need that after the sign up or log in it will send him to his page according to his member type, there's three fragments security medic and fire
+//todo - firestore
 public class Member {
 
     // Member attributes
