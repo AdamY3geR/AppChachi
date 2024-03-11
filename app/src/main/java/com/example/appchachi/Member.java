@@ -12,7 +12,10 @@ package com.example.appchachi;
 
 //todo - add remember me after login
 //todo - i need that after the sign up or log in it will send him to his page according to his member type, there's three fragments security medic and fire
-//todo - firestore
+//todo - add no same email
+//todo - fix login successful everytime
+//todo - add forgot password
+
 public class Member {
 
     // Member attributes

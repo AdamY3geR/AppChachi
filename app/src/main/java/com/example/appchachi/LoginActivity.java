@@ -48,10 +48,30 @@ public class LoginActivity extends AppCompatActivity {
         String password = Objects.requireNonNull(etPassword.getText()).toString().trim();
 
         // Perform login logic here
-        // For demonstration purposes, display a toast message
-        String message = "Login successful!\n" +
-                "Email: " + email + "\n" +
-                "Password: " + password;
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        // For demonstration purposes, let's assume the login is successful
+        // Retrieve the member type from the database or any other source
+        String memberType = getMemberTypeFromDatabase(); // Replace this with your actual method to retrieve member type
+
+        if (memberType != null) {
+            // Login successful, navigate to MainActivity and pass the member type
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("MEMBER_TYPE", memberType);
+            startActivity(intent);
+            finish(); // Close LoginActivity
+        } else {
+            // Handle the case where member type is not available
+            Toast.makeText(this, "Failed to retrieve member type", Toast.LENGTH_SHORT).show();
+        }
     }
+
+    /**
+     * Method to retrieve the member type from the database.
+     * Replace this with your actual implementation.
+     */
+    private String getMemberTypeFromDatabase() {
+        // This is a placeholder method, replace it with your actual logic
+        // For demonstration purposes, return a hardcoded member type
+        return "Security"; // Replace with actual member type retrieved from the database
+    }
+
 }

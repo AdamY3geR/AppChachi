@@ -1,5 +1,6 @@
 package com.example.appchachi;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -11,7 +12,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -24,6 +27,8 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+
 
         // Initialize views
         layoutEmail = findViewById(R.id.layoutEmail);
@@ -126,7 +131,7 @@ public class SignupActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        // Sign up success, save member data to Firestore
+                        // Sign up success, save member data to Realtime Database
                         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                         if (firebaseUser != null) {
                             // Create a Member object with the provided member details
@@ -139,14 +144,22 @@ public class SignupActivity extends AppCompatActivity {
                                 member = new Fire(userID, name, phone, email, true, isAdmin);
                             }
 
-                            // Save the member object to Firestore
-                            FirebaseFirestore.getInstance().collection("members")
-                                    .document(firebaseUser.getUid())
-                                    .set(member)
+                            // Get a reference to the "members" node in the database
+                            DatabaseReference membersRef = FirebaseDatabase.getInstance().getReference("members");
+
+                            // Save the member object to the database
+                            membersRef.child(firebaseUser.getUid()).setValue(member)
                                     .addOnSuccessListener(aVoid -> {
                                         // Member data saved successfully
                                         Toast.makeText(SignupActivity.this, "Sign up successful!", Toast.LENGTH_SHORT).show();
-                                        // Proceed to the next step in your app
+
+                                        // Pass the member type information to MainActivity and start it
+                                        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                                        intent.putExtra("MEMBER_TYPE", memberType);
+                                        startActivity(intent);
+
+                                        // Close the SignupActivity
+                                        finish();
                                     })
                                     .addOnFailureListener(e -> {
                                         // Error saving member data
@@ -159,5 +172,4 @@ public class SignupActivity extends AppCompatActivity {
                     }
                 });
     }
-
 }

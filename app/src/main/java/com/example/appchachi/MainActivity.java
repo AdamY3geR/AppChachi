@@ -38,20 +38,48 @@ public class MainActivity extends AppCompatActivity {
         // Initialize Firebase
         FirebaseApp.initializeApp(this);
 
-
-
-        binding.bottomNavigation.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.navi_security) {
-                replaceFragment(new SecurityFragment());
-            } else if (item.getItemId() == R.id.navi_medic) {
-                replaceFragment(new MedicFragment());
-            } else if (item.getItemId() == R.id.navi_fire) {
-                replaceFragment(new FireFragment());
-            } else if (item.getItemId() == R.id.navi_map) {
-                replaceFragment(new MapFragment());
+        String memberType = getIntent().getStringExtra("MEMBER_TYPE");
+        if (memberType != null) {
+            // Set the bottom navigation item based on the member type
+            switch (memberType) {
+                case "Security":
+                    binding.bottomNavigation.setSelectedItemId(R.id.navi_security);
+                    replaceFragment(new SecurityFragment());
+                    break;
+                case "Medic":
+                    binding.bottomNavigation.setSelectedItemId(R.id.navi_medic);
+                    replaceFragment(new MedicFragment());
+                    break;
+                case "Fire":
+                    binding.bottomNavigation.setSelectedItemId(R.id.navi_fire);
+                    replaceFragment(new FireFragment());
+                    break;
             }
+        } else {
+            // Default to SecurityFragment if no member type is passed
+            replaceFragment(new SecurityFragment());
+        }
+
+
+        // Set up bottom navigation
+        binding.bottomNavigation.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            Fragment fragment = null;
+            if (itemId == R.id.navi_security) {
+                fragment = new SecurityFragment();
+            } else if (itemId == R.id.navi_medic) {
+                fragment = new MedicFragment();
+            } else if (itemId == R.id.navi_fire) {
+                fragment = new FireFragment();
+            } else if (itemId == R.id.navi_map) {
+                fragment = new MapFragment();
+            }
+
             return true;
         });
+
+
+
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -99,7 +127,4 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frame_layout_navigation, fragment);
         fragmentTransaction.commit();
     }
-
-
-
 }
