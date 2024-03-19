@@ -13,8 +13,8 @@ package com.example.appchachi;
 //todo - add remember me after login
 //todo - i need that after the sign up or log in it will send him to his page according to his member type, there's three fragments security medic and fire
 //todo - add no same email
-//todo - fix login successful everytime
 //todo - add forgot password
+//todo - change memberType to spinner/dropdown
 
 public class Member {
 
@@ -25,6 +25,8 @@ public class Member {
     private String email;
     private boolean status;
     private Boolean isAdmin;
+    private String memberType;
+
 
     /**
      * Constructor for creating a Member object.
@@ -36,16 +38,26 @@ public class Member {
      * @param status The status of the member.
      * @param isAdmin Specifies if the member is an admin.
      */
-    public Member(String id, String name, String phone, String email, boolean status, boolean isAdmin) {
+    public Member(String id, String name, String phone, String email, boolean status, boolean isAdmin, String memberType) {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.status = status;
         this.isAdmin = isAdmin;
+        this.memberType = memberType;
     }
 
     // Getter and setter methods for member attributes
+
+    /**
+     * Gets the MemberType of the member
+     *
+     * @return the MemberType of the member
+     */
+    public String getMemberType() {
+        return memberType;
+    }
 
     /**
      * Gets the ID of the member.
@@ -136,6 +148,16 @@ public class Member {
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    /**
+     * Sets the MemberType of the member.
+     *
+     * @param memberType of the member
+     */
+    public void setMemberType(String memberType) {
+        this.memberType = memberType;
+    }
+
 
     /**
      * Checks if the member is an admin.

@@ -29,8 +29,8 @@ public class SecurityFragment extends Fragment {
         lv_security= rootView.findViewById(R.id.lv_security);
 
         // Creating Security objects
-        Security s1 = new Security("326900503","Adam Jose Yeger","0537156797","adamyeger@gmail.com",true,true);
-        Security s2 = new Security("326900503","Maya Yeger","0533314929","adamyeger@gmail.com",true,false);
+        Security s1 = new Security("326900503","Adam Jose Yeger","0537156797","adamyeger@gmail.com",true,true,"security");
+        Security s2 = new Security("326900503","Maya Yeger","0533314929","adamyeger@gmail.com",true,false,"security");
 
         // Adding Security objects to the list
         securityList = new ArrayList<>();

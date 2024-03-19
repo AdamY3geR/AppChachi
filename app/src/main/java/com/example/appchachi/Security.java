@@ -15,8 +15,8 @@ public class Security extends Member {
      * @param status The status of the security personnel.
      * @param isAdmin Specifies if the security personnel is an admin.
      */
-    public Security(String id, String name, String phone, String email, boolean status, boolean isAdmin) {
-        super(id, name, phone, email, status, isAdmin);
+    public Security(String id, String name, String phone, String email, boolean status, boolean isAdmin,String memberType) {
+        super(id, name, phone, email, status, isAdmin, memberType);
     }
 
     // Additional attribute for Security class
@@ -33,8 +33,8 @@ public class Security extends Member {
      * @param position The position of the security personnel.
      * @param isAdmin Specifies if the security personnel is an admin.
      */
-    public Security(String id, String name, String phone, String email, boolean status, String position, boolean isAdmin) {
-        super(id, name, phone, email, status, isAdmin);
+    public Security(String id, String name, String phone, String email, boolean status, String position, boolean isAdmin, String memberType) {
+        super(id, name, phone, email, status, isAdmin, memberType);
         this.position = position;
     }
 

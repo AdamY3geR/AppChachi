@@ -75,8 +75,14 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new MapFragment();
             }
 
+            // Replace the current fragment with the selected fragment
+            if (fragment != null) {
+                replaceFragment(fragment);
+            }
+
             return true;
         });
+
 
 
 

@@ -14,7 +14,7 @@ public class Fire extends Member{
      * @param status The status of the fire department personnel.
      * @param isAdmin Indicates if the fire department personnel is an administrator.
      */
-    public Fire(String id, String name, String phone, String email, boolean status, boolean isAdmin) {
-        super(id, name, phone, email, status, isAdmin);
+    public Fire(String id, String name, String phone, String email, boolean status, boolean isAdmin,String memberType) {
+        super(id, name, phone, email, status, isAdmin,memberType);
     }
 }

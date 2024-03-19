@@ -31,7 +31,7 @@ public class FireFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_fire, container, false);
         lv_fire = rootView.findViewById(R.id.lv_fire);
-        Fire f1 = new Fire("326900503", "Sami Hacabai", "0545756185", "sami@gmail.com", true, false );
+        Fire f1 = new Fire("326900503", "Sami Hacabai", "0545756185", "sami@gmail.com", true, false, "fire");
         fireList = new ArrayList<>();
         fireList.add(f1);
         fireAdapter = new FireAdapter(requireContext(), 0, 0, fireList);

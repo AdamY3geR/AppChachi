@@ -137,12 +137,13 @@ public class SignupActivity extends AppCompatActivity {
                             // Create a Member object with the provided member details
                             Member member;
                             if (memberType.equals(getString(R.string.security))) {
-                                member = new Security(userID, name, phone, email, true, "", isAdmin);
+                                member = new Security(userID, name, phone, email, true, "", isAdmin , memberType);
                             } else if (memberType.equals(getString(R.string.medic))) {
-                                member = new Medic(userID, name, phone, email, true, "", isAdmin);
+                                member = new Medic(userID, name, phone, email, true, "", isAdmin, memberType);
                             } else {
-                                member = new Fire(userID, name, phone, email, true, isAdmin);
+                                member = new Fire(userID, name, phone, email, true, isAdmin, memberType);
                             }
+
 
                             // Get a reference to the "members" node in the database
                             DatabaseReference membersRef = FirebaseDatabase.getInstance().getReference("members");

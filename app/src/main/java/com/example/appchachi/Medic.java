@@ -14,8 +14,8 @@ public class Medic extends Member{
      * @param status The status of the medic.
      * @param isAdmin Indicates whether the medic is an admin or not.
      */
-    public Medic(String id, String name, String phone, String email, boolean status, boolean isAdmin) {
-        super(id, name, phone, email, status, isAdmin);
+    public Medic(String id, String name, String phone, String email, boolean status, boolean isAdmin, String memberType) {
+        super(id, name, phone, email, status, isAdmin,memberType);
     }
 
     private String equipment; // Equipment used by the medic
@@ -31,8 +31,8 @@ public class Medic extends Member{
      * @param equipment The equipment used by the medic.
      * @param isAdmin Indicates whether the medic is an admin or not.
      */
-    public Medic(String id, String name, String phone, String email, boolean status, String equipment, boolean isAdmin) {
-        super(id, name, phone, email, status, isAdmin);
+    public Medic(String id, String name, String phone, String email, boolean status, String equipment, boolean isAdmin,String memberType) {
+        super(id, name, phone, email, status, isAdmin,memberType);
         this.equipment = equipment;
     }
 

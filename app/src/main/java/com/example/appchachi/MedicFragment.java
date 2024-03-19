@@ -42,7 +42,7 @@ public class MedicFragment extends Fragment {
         lv_medic= rootView.findViewById(R.id.lv_medic);
 
         // Create a sample Medic object
-        Medic m1 = new Medic("326900503", "Rofe Tov", "0506590083", "Yeger180@gmail.com", true, true);
+        Medic m1 = new Medic("326900503", "Rofe Tov", "0506590083", "Yeger180@gmail.com", true, true,"medic");
 
         // Initialize the list of medical personnel and add the sample Medic object
         medicList = new ArrayList<>();
