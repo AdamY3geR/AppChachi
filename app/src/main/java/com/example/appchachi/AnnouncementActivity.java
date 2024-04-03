@@ -1,5 +1,6 @@
 package com.example.appchachi;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -23,7 +24,6 @@ import java.util.List;
  */
 public class AnnouncementActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
     private AnnouncementAdapter adapter;
     private List<String> announcements;
 
@@ -37,7 +37,7 @@ public class AnnouncementActivity extends AppCompatActivity {
         btnCreateAnnouncement.setOnClickListener(v -> openAnnouncementFormActivity());
 
         // Initialize RecyclerView and layout manager
-        recyclerView = findViewById(R.id.rv_announcements);
+        RecyclerView recyclerView = findViewById(R.id.rv_announcements);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize announcements list and adapter
@@ -57,14 +57,18 @@ public class AnnouncementActivity extends AppCompatActivity {
     private void populateAnnouncements() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("announcements");
         databaseReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 announcements.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String announcement = snapshot.getValue(String.class);
-                    announcements.add(announcement);
+                    Announcement announcement = snapshot.getValue(Announcement.class);
+                    if (announcement != null && announcement.getRecipients().contains("CurrentUser")) {
+                        announcements.add(announcement.getMessage());
+                        // Send notification for this announcement
+                        NotificationUtils.showNotification(AnnouncementActivity.this, "New Announcement", announcement.getMessage());
+                    }
                 }
-                // Notify adapter that data set has changed
                 adapter.notifyDataSetChanged();
             }
 

@@ -1,38 +1,39 @@
 package com.example.appchachi;
 
-/**
- * Class representing an announcement.
- */
+import java.util.List;
+
 public class Announcement {
     private String from;
     private String message;
+    private List<String> recipients; // Add recipients field
 
-    /**
-     * Constructor for creating an Announcement object.
-     *
-     * @param from    The sender of the announcement.
-     * @param message The content of the announcement.
-     */
-    public Announcement(String from, String message) {
+    public Announcement(String from, String message, List<String> recipients) {
         this.from = from;
         this.message = message;
+        this.recipients = recipients;
     }
 
-    /**
-     * Getter method for retrieving the sender of the announcement.
-     *
-     * @return The sender of the announcement.
-     */
     public String getFrom() {
         return from;
     }
 
-    /**
-     * Getter method for retrieving the content of the announcement.
-     *
-     * @return The content of the announcement.
-     */
     public String getMessage() {
         return message;
+    }
+
+    public List<String> getRecipients() {
+        return recipients;
+    }
+
+    public void setRecipients(List<String> recipients) {
+        this.recipients = recipients;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

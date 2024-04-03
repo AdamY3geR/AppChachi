@@ -8,22 +8,6 @@
     tools:context=".AnnouncementActivity">
 
   <TextView
-      android:id="@+id/tv_from"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/from"
-      android:textAppearance="?android:attr/textAppearanceMedium" />
-
-  <EditText
-      android:id="@+id/et_from"
-      android:layout_width="match_parent"
-      android:layout_height="60dp"
-      android:ems="10"
-      android:hint="Enter sender name"
-      android:inputType="textPersonName"
-      tools:ignore="Autofill,HardcodedText,TextContrastCheck,VisualLintTextFieldSize" />
-
-  <TextView
       android:id="@+id/tv_message"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -41,11 +25,24 @@
       android:minLines="2"
       tools:ignore="Autofill,HardcodedText,TextContrastCheck,VisualLintTextFieldSize" />
 
+  <com.google.android.material.textfield.MaterialAutoCompleteTextView
+      android:id="@+id/dd_recipients"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:hint="Select recipient"
+      android:inputType="none"
+      android:minHeight="48dp"
+      android:popupTheme="@style/Widget.MaterialComponents.PopupMenu"
+      android:textColorHint="#546E7A"
+      tools:ignore="HardcodedText,MissingConstraints,VisualLintTextFieldSize" />
+
   <Button
       android:id="@+id/btn_send"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="Send"
+      android:layout_marginTop="16dp"
       tools:ignore="HardcodedText" />
 
 </LinearLayout>

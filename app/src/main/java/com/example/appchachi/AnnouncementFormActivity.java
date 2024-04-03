@@ -1,14 +1,19 @@
 package com.example.appchachi;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Activity for creating and sending announcements.
@@ -16,11 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 public class AnnouncementFormActivity extends AppCompatActivity {
     private EditText announcementEditText;
 
-    /**
-     * Called when the activity is starting.
-     *
-     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle).
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,14 +29,26 @@ public class AnnouncementFormActivity extends AppCompatActivity {
         announcementEditText = findViewById(R.id.et_message);
         Button btnSend = findViewById(R.id.btn_send);
 
+        // Dropdown menu for selecting recipients
+        String[] recipientsArray = {"Security", "Medic", "Fire", "All"};
+        MaterialAutoCompleteTextView dropdownRecipients = findViewById(R.id.dd_recipients);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.dpd_item_announcement, recipientsArray);
+        dropdownRecipients.setAdapter(adapter);
+
         btnSend.setOnClickListener(v -> {
             String announcementMessage = announcementEditText.getText().toString().trim();
+            String selectedRecipient = dropdownRecipients.getText().toString().trim(); // Rename to selectedRecipient
+
             if (!announcementMessage.isEmpty()) {
-                // Push new announcement to Firebase Realtime Database
+                List<String> recipients = new ArrayList<>(); // Define the recipients list here
+                recipients.add(selectedRecipient); // Add selected recipient to the list
+
+                // Push new announcement with recipients to Firebase Realtime Database
                 DatabaseReference announcementsRef = FirebaseDatabase.getInstance().getReference("announcements");
                 String key = announcementsRef.push().getKey(); // Generate unique key for the announcement
                 assert key != null;
-                announcementsRef.child(key).setValue(announcementMessage)
+                Announcement newAnnouncement = new Announcement("SenderName", announcementMessage, recipients);
+                announcementsRef.child(key).setValue(newAnnouncement)
                         .addOnSuccessListener(aVoid -> {
                             // Announcement successfully added
                             Toast.makeText(AnnouncementFormActivity.this, "Announcement sent", Toast.LENGTH_SHORT).show();

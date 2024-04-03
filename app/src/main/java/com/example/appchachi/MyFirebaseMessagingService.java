@@ -3,7 +3,12 @@
  */
 package com.example.appchachi;
 
+// MyFirebaseMessagingService.java
+
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -18,7 +23,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * @param remoteMessage The message received from Firebase Cloud Messaging.
      */
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
+    public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
         // Check if the message contains a notification payload.
@@ -46,7 +51,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * @param token The new registration token.
      */
     @Override
-    public void onNewToken(String token) {
+    public void onNewToken(@NonNull String token) {
         super.onNewToken(token);
 
         // If you need to handle the generation of a new registration token,
