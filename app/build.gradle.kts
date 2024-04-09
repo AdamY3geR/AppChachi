@@ -56,6 +56,4 @@ dependencies {
     implementation ("com.google.firebase:firebase-firestore:24.10.3")
     implementation ("com.google.firebase:firebase-database:20.3.1")
 
-
-
 }

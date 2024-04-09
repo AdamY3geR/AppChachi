@@ -1,6 +1,5 @@
 package com.example.appchachi;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -10,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -57,19 +58,37 @@ public class AnnouncementActivity extends AppCompatActivity {
     private void populateAnnouncements() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("announcements");
         databaseReference.addValueEventListener(new ValueEventListener() {
-            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 announcements.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Announcement announcement = snapshot.getValue(Announcement.class);
-                    if (announcement != null && announcement.getRecipients().contains("CurrentUser")) {
-                        announcements.add(announcement.getMessage());
-                        // Send notification for this announcement
-                        NotificationUtils.showNotification(AnnouncementActivity.this, "New Announcement", announcement.getMessage());
+
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                FirebaseUser currentUser = auth.getCurrentUser();
+
+                if (currentUser != null) {
+                    String currentUserId = currentUser.getUid(); // Assuming you're using Firebase Authentication
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        // Retrieve announcement data from snapshot
+                        String message = snapshot.child("message").getValue(String.class);
+                        List<String> recipients = new ArrayList<>();
+
+                        // Retrieve recipients list from snapshot
+                        DataSnapshot recipientsSnapshot = snapshot.child("recipients");
+                        for (DataSnapshot recipientSnapshot : recipientsSnapshot.getChildren()) {
+                            String recipientId = recipientSnapshot.getKey();
+                            recipients.add(recipientId);
+                        }
+
+                        // Check if the current user is a recipient
+                        if (recipients.contains(currentUserId)) {
+                            announcements.add(message);
+                            // Send notification for this announcement
+                            NotificationUtils.showNotification(AnnouncementActivity.this, "New Announcement", message);
+                        }
                     }
+                    adapter.notifyDataSetChanged();
                 }
-                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -78,6 +97,7 @@ public class AnnouncementActivity extends AppCompatActivity {
             }
         });
     }
+
 
     /**
      * Opens the AnnouncementFormActivity to create a new announcement.

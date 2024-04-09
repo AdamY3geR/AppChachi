@@ -31,11 +31,9 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
       android:hint="Select recipient"
-      android:inputType="none"
-      android:minHeight="48dp"
-      android:popupTheme="@style/Widget.MaterialComponents.PopupMenu"
       android:textColorHint="#546E7A"
-      tools:ignore="HardcodedText,MissingConstraints,VisualLintTextFieldSize" />
+      android:minHeight="48dp"
+      android:popupTheme="@style/Widget.MaterialComponents.PopupMenu" />
 
   <Button
       android:id="@+id/btn_send"
