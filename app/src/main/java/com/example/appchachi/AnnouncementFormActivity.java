@@ -71,19 +71,24 @@ public class AnnouncementFormActivity extends AppCompatActivity {
         List<String> recipients = new ArrayList<>();
 
         if (selectedRecipient.equalsIgnoreCase("All")) {
-            ArrayAdapter<String> adapter = (ArrayAdapter<String>) dropdownRecipients.getAdapter();
-            if (adapter != null) {
-                int count = adapter.getCount();
-                for (int i = 0; i < count; i++) {
-                    String memberType = adapter.getItem(i);
-                    if (memberType != null && isValidRecipient(memberType)) {
-                        recipients.add(memberType);
+            membersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        String memberType = snapshot.child("memberType").getValue(String.class);
+                        if (memberType != null && isValidRecipient(memberType)) {
+                            recipients.add(memberType);
+                        }
                     }
+                    sendAnnouncement(announcementMessage, recipients);
                 }
-                sendAnnouncement(announcementMessage, recipients);
-            } else {
-                Toast.makeText(AnnouncementFormActivity.this, "Failed to fetch member types", Toast.LENGTH_SHORT).show();
-            }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle onCancelled
+                    Toast.makeText(AnnouncementFormActivity.this, "Failed to fetch member types", Toast.LENGTH_SHORT).show();
+                }
+            });
         } else {
             recipients.add(selectedRecipient);
             sendAnnouncement(announcementMessage, recipients);
@@ -101,10 +106,44 @@ public class AnnouncementFormActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(AnnouncementFormActivity.this, "Announcement sent", Toast.LENGTH_SHORT).show();
                             announcementEditText.setText(""); // Clear input field
+                            sendNotifications(recipients);
                         } else {
                             Toast.makeText(AnnouncementFormActivity.this, "Failed to send announcement", Toast.LENGTH_SHORT).show();
                         }
                     });
         }
+    }
+
+    private void sendNotifications(List<String> recipients) {
+        for (String recipient : recipients) {
+            memberTokensRef.child(recipient).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String fcmToken = dataSnapshot.getValue(String.class);
+                        if (fcmToken != null) {
+                            sendNotificationToToken(fcmToken);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle onCancelled
+                }
+            });
+        }
+    }
+
+    private void sendNotificationToToken(String fcmToken) {
+        Map<String, String> notificationData = new HashMap<>();
+        notificationData.put("title", "New Announcement");
+        notificationData.put("message", announcementEditText.getText().toString().trim());
+
+        RemoteMessage message = new RemoteMessage.Builder(fcmToken)
+                .setData(notificationData)
+                .build();
+
+        FirebaseMessaging.getInstance().send(message);
     }
 }
