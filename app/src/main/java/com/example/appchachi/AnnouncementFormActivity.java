@@ -36,6 +36,8 @@ public class AnnouncementFormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_announcement_form);
 
+        NotificationUtils.createNotificationChannel(this);
+
         announcementEditText = findViewById(R.id.et_message);
         Button btnSend = findViewById(R.id.btn_send);
 

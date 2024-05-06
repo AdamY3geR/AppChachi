@@ -1,27 +1,20 @@
-/**
- * Service class for handling Firebase Cloud Messaging (FCM) messages.
- */
 package com.example.appchachi;
-
-// MyFirebaseMessagingService.java
 
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
-    // Tag for logging messages
     private static final String TAG = "MyFirebaseMsgService";
 
-    /**
-     * Called when a message is received.
-     *
-     * @param remoteMessage The message received from Firebase Cloud Messaging.
-     */
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
@@ -33,11 +26,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             // Handle the notification message.
             // You can display the notification, update UI, etc.
             // For example, you can use NotificationUtils to create and display a notification:
-            // NotificationUtils.showNotification(getApplicationContext(), remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
+            NotificationUtils.showNotification(getApplicationContext(), remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
         }
 
         // Check if the message contains data payload.
-        if (remoteMessage.getData().size() > 0) {
+        if (!remoteMessage.getData().isEmpty()) {
             Log.d(TAG, "Data Payload: " + remoteMessage.getData());
 
             // Handle the data payload.
@@ -45,18 +38,25 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
     }
 
-    /**
-     * Called when a new token is generated.
-     *
-     * @param token The new registration token.
-     */
     @Override
     public void onNewToken(@NonNull String token) {
         super.onNewToken(token);
 
-        // If you need to handle the generation of a new registration token,
-        // override this method.
-        // This method is called whenever a new token is generated.
-        // You can save the token to your server or perform other tasks as needed.
+        // Get the current user's ID from Firebase Authentication
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+
+            // Save the FCM token to the database using the user's UID
+            saveTokenToDatabase(userId, token);
+        }
+    }
+
+    private void saveTokenToDatabase(String userId, String token) {
+        DatabaseReference tokensRef = FirebaseDatabase.getInstance().getReference("user_tokens");
+        tokensRef.child(userId).setValue(token)
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "Token saved to database"))
+                .addOnFailureListener(e -> Log.e(TAG, "Failed to save token to database: " + e.getMessage()));
     }
 }

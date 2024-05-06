@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         replaceFragment(new SecurityFragment());
 
+
         // Initialize Firebase
         FirebaseApp.initializeApp(this);
 
