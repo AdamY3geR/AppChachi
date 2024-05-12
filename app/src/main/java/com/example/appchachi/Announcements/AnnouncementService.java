@@ -1,4 +1,4 @@
-package com.example.appchachi;
+package com.example.appchachi.Announcements;
 
 import android.app.Service;
 import android.content.Intent;

@@ -12,6 +12,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.appchachi.Announcements.AnnouncementActivity;
+import com.example.appchachi.Fragments.FireFragment;
+import com.example.appchachi.Fragments.MapFragment;
+import com.example.appchachi.Fragments.MedicFragment;
+import com.example.appchachi.Fragments.SecurityFragment;
 import com.example.appchachi.databinding.ActivityMainBinding;
 import com.google.firebase.FirebaseApp;
 

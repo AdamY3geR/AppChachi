@@ -1,4 +1,4 @@
-package com.example.appchachi;
+package com.example.appchachi.Announcements;
 
 import android.util.Log;
 

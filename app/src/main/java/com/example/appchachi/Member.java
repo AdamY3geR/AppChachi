@@ -4,16 +4,12 @@
 package com.example.appchachi;
 
 //todo - enabling broadcast+notification
-//todo - firebase ml messaging
-//todo - for admin user-> adding a create and send survey to listed members of the kita
 //todo - after adding authentication that it will add automatically to the lv
-//todo - announcement will show who sent it
-
+//todo - instead of after a announcement check who neeed to get a notification, each phone will have a servce that always look for a new announcement and the make its own notofications
 
 //todo - add remember me after login
 //todo - add no same email
 //todo - add forgot password
-//todo - change memberType to spinner/dropdown
 
 public class Member {
 

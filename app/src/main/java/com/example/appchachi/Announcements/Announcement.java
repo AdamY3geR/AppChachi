@@ -1,4 +1,4 @@
-package com.example.appchachi;
+package com.example.appchachi.Announcements;
 
 import java.util.List;
 
@@ -6,6 +6,10 @@ public class Announcement {
     private String from;
     private String message;
     private List<String> recipients; // Add recipients field
+
+    // Required no-argument constructor
+    public Announcement() {
+    }
 
     public Announcement(String from, String message, List<String> recipients) {
         this.from = from;

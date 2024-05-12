@@ -1,15 +1,20 @@
-package com.example.appchachi;
+package com.example.appchachi.Announcements;
+
+// AnnouncementFormActivity.java
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.textfield.MaterialAutoCompleteTextView;
+import com.example.appchachi.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +31,7 @@ import java.util.Map;
 public class AnnouncementFormActivity extends AppCompatActivity {
 
     private EditText announcementEditText;
-    private MaterialAutoCompleteTextView dropdownRecipients;
+    private Spinner spinnerRecipients;
     private DatabaseReference membersRef;
     private DatabaseReference memberTokensRef;
     private final String[] validRecipients = {"Security", "Medic", "Fire", "All"};
@@ -44,13 +49,14 @@ public class AnnouncementFormActivity extends AppCompatActivity {
         membersRef = FirebaseDatabase.getInstance().getReference("members");
         memberTokensRef = FirebaseDatabase.getInstance().getReference("memberTokens");
 
-        dropdownRecipients = findViewById(R.id.dd_recipients);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, validRecipients);
-        dropdownRecipients.setAdapter(adapter);
+        spinnerRecipients = findViewById(R.id.spinner_recipients);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, validRecipients);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRecipients.setAdapter(adapter);
 
         btnSend.setOnClickListener(v -> {
             String announcementMessage = announcementEditText.getText().toString().trim();
-            String selectedRecipient = dropdownRecipients.getText().toString().trim();
+            String selectedRecipient = spinnerRecipients.getSelectedItem().toString().trim();
 
             if (!announcementMessage.isEmpty() && isValidRecipient(selectedRecipient)) {
                 getRecipientsAndSendAnnouncement(selectedRecipient, announcementMessage);
@@ -102,19 +108,56 @@ public class AnnouncementFormActivity extends AppCompatActivity {
         String key = announcementsRef.push().getKey();
 
         if (key != null) {
-            Announcement newAnnouncement = new Announcement("SenderName", announcementMessage, recipients);
-            announcementsRef.child(key).setValue(newAnnouncement)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(AnnouncementFormActivity.this, "Announcement sent", Toast.LENGTH_SHORT).show();
-                            announcementEditText.setText(""); // Clear input field
-                            sendNotifications(recipients);
+            // Get the current user's email from Firebase Authentication
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (currentUser != null) {
+                String senderEmail = currentUser.getEmail();
+
+                // Query the "members" node to find the user with the matching email
+                DatabaseReference membersRef = FirebaseDatabase.getInstance().getReference("members");
+                membersRef.orderByChild("email").equalTo(senderEmail).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            // Get the first user found with the matching email
+                            for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                                String senderName = userSnapshot.child("name").getValue(String.class);
+                                if (senderName != null) {
+                                    // Create the announcement with the retrieved senderName
+                                    Announcement newAnnouncement = new Announcement(senderName, announcementMessage, recipients);
+                                    announcementsRef.child(key).setValue(newAnnouncement)
+                                            .addOnCompleteListener(task -> {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(AnnouncementFormActivity.this, "Announcement sent", Toast.LENGTH_SHORT).show();
+                                                    announcementEditText.setText(""); // Clear input field
+                                                    sendNotifications(recipients);
+                                                } else {
+                                                    Toast.makeText(AnnouncementFormActivity.this, "Failed to send announcement", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                    return; // Exit the loop after finding the user
+                                }
+                            }
                         } else {
-                            Toast.makeText(AnnouncementFormActivity.this, "Failed to send announcement", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AnnouncementFormActivity.this, "User with email " + senderEmail + " not found", Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Handle onCancelled
+                        Toast.makeText(AnnouncementFormActivity.this, "Failed to fetch user data", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                Toast.makeText(AnnouncementFormActivity.this, "Current user not authenticated", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(AnnouncementFormActivity.this, "Failed to generate announcement key", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 
     private void sendNotifications(List<String> recipients) {
         for (String recipient : recipients) {

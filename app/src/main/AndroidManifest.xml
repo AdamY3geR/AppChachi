@@ -24,31 +24,31 @@
         android:theme="@style/Theme.AppChachi"
         tools:targetApi="31">
         <activity
-            android:name=".LoginActivity"
+            android:name=".loginup.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".SignupActivity"
+            android:name=".loginup.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".AnnouncementActivity"
+            android:name=".Announcements.AnnouncementActivity"
             android:exported="false" />
         <activity
-            android:name=".AnnouncementFormActivity"
+            android:name=".Announcements.AnnouncementFormActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
         <activity
-            android:name=".FireFragment"
+            android:name=".Fragments.FireFragment"
             android:exported="false" />
         <activity
-            android:name=".MapFragment"
+            android:name=".Fragments.MapFragment"
             android:exported="false" />
         <activity
-            android:name=".SecurityFragment"
+            android:name=".Fragments.SecurityFragment"
             android:exported="true" />
         <activity
-            android:name=".MedicFragment"
+            android:name=".Fragments.MedicFragment"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
@@ -62,7 +62,7 @@
         </activity>
 
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name=".Announcements.MyFirebaseMessagingService"
             android:exported="true"
             tools:ignore="ExportedService">
             <intent-filter>
@@ -71,7 +71,7 @@
         </service>
 
         <receiver
-            android:name=".AnnouncementReceiver"
+            android:name=".Announcements.AnnouncementReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.example.appchachi.ANNOUNCEMENT_ACTION" />

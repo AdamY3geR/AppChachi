@@ -1,4 +1,4 @@
-package com.example.appchachi;
+package com.example.appchachi.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,6 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import androidx.fragment.app.Fragment;
+
+import com.example.appchachi.R;
+import com.example.appchachi.Security;
+
 import java.util.ArrayList;
 
 public class SecurityFragment extends Fragment {

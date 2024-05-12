@@ -1,13 +1,19 @@
-package com.example.appchachi;
+package com.example.appchachi.loginup;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.material.textfield.MaterialAutoCompleteTextView;
+
+import com.example.appchachi.Fire;
+import com.example.appchachi.MainActivity;
+import com.example.appchachi.Medic;
+import com.example.appchachi.Member;
+import com.example.appchachi.R;
+import com.example.appchachi.Security;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,41 +21,37 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-
 public class SignupActivity extends AppCompatActivity {
 
-    private TextInputLayout layoutEmail, layoutPassword, layoutName, layoutPhone, layoutUserID, layoutMemberType;
+    private TextInputLayout layoutEmail, layoutPassword, layoutName, layoutPhone, layoutUserID;
     private TextInputEditText etEmail, etPassword, etName, etPhone, etUserID;
-    private MaterialAutoCompleteTextView ddMemberType;
-    private CheckBox cbAdmin;
+    private Spinner spinnerMemberType;
+    private Button btnSignup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-
-
         // Initialize views
         layoutEmail = findViewById(R.id.layoutEmail);
         layoutPassword = findViewById(R.id.layoutPassword);
         layoutName = findViewById(R.id.layoutName);
         layoutPhone = findViewById(R.id.layoutPhone);
-        layoutUserID = findViewById(R.id.layoutUserID); // Updated reference
-        layoutMemberType = findViewById(R.id.layoutMemberType);
+        layoutUserID = findViewById(R.id.layoutUserID);
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
         etName = findViewById(R.id.et_name);
         etPhone = findViewById(R.id.et_phone);
-        etUserID = findViewById(R.id.et_userID); // Updated reference
-        ddMemberType = findViewById(R.id.dd_memberType);
-        cbAdmin = findViewById(R.id.cb_admin);
-        Button btnSignup = findViewById(R.id.btn_signup);
+        etUserID = findViewById(R.id.et_userID);
+        spinnerMemberType = findViewById(R.id.spinner_memberType);
+        btnSignup = findViewById(R.id.btn_signup);
 
         // Set up dropdown menu for member type
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.member_types_array, android.R.layout.simple_dropdown_item_1line);
-        ddMemberType.setAdapter(adapter);
+                R.array.member_types_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerMemberType.setAdapter(adapter);
 
         // Set up click listener for signup button
         btnSignup.setOnClickListener(view -> {
@@ -68,6 +70,7 @@ public class SignupActivity extends AppCompatActivity {
      */
     private boolean validateInputs() {
         // Perform validation for each input field
+        // Email
         if (etEmail.getText() == null || etEmail.getText().toString().trim().isEmpty()) {
             layoutEmail.setError("Email is required");
             return false;
@@ -75,6 +78,7 @@ public class SignupActivity extends AppCompatActivity {
             layoutEmail.setError(null);
         }
 
+        // Password
         if (etPassword.getText() == null || etPassword.getText().toString().trim().isEmpty()) {
             layoutPassword.setError("Password is required");
             return false;
@@ -82,6 +86,7 @@ public class SignupActivity extends AppCompatActivity {
             layoutPassword.setError(null);
         }
 
+        // Name
         if (etName.getText() == null || etName.getText().toString().trim().isEmpty()) {
             layoutName.setError("Name is required");
             return false;
@@ -89,6 +94,7 @@ public class SignupActivity extends AppCompatActivity {
             layoutName.setError(null);
         }
 
+        // Phone
         if (etPhone.getText() == null || etPhone.getText().toString().trim().isEmpty()) {
             layoutPhone.setError("Phone is required");
             return false;
@@ -96,18 +102,12 @@ public class SignupActivity extends AppCompatActivity {
             layoutPhone.setError(null);
         }
 
+        // User ID
         if (etUserID.getText() == null || etUserID.getText().toString().trim().isEmpty()) {
             layoutUserID.setError("User ID is required");
             return false;
         } else {
             layoutUserID.setError(null);
-        }
-
-        if (ddMemberType.getText() == null || ddMemberType.getText().toString().trim().isEmpty()) {
-            layoutMemberType.setError("Member type is required");
-            return false;
-        } else {
-            layoutMemberType.setError(null);
         }
 
         // All inputs are valid
@@ -124,8 +124,8 @@ public class SignupActivity extends AppCompatActivity {
         String name = etName.getText() != null ? etName.getText().toString().trim() : "";
         String phone = etPhone.getText() != null ? etPhone.getText().toString().trim() : "";
         String userID = etUserID.getText() != null ? etUserID.getText().toString().trim() : "";
-        String memberType = ddMemberType.getText() != null ? ddMemberType.getText().toString().trim() : "";
-        boolean isAdmin = cbAdmin.isChecked();
+        String memberType = spinnerMemberType.getSelectedItem().toString();
+        boolean isAdmin = false; // Admin checkbox is not present in the layout
 
         // Create a new member account with Firebase Authentication
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
@@ -143,7 +143,6 @@ public class SignupActivity extends AppCompatActivity {
                             } else {
                                 member = new Fire(userID, name, phone, email, true, isAdmin, memberType);
                             }
-
 
                             // Get a reference to the "members" node in the database
                             DatabaseReference membersRef = FirebaseDatabase.getInstance().getReference("members");

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".AnnouncementActivity">
+    tools:context=".Announcements.AnnouncementActivity">
 
   <TextView
       android:id="@+id/tv_message"
@@ -25,15 +25,22 @@
       android:minLines="2"
       tools:ignore="Autofill,HardcodedText,TextContrastCheck,VisualLintTextFieldSize" />
 
-  <com.google.android.material.textfield.MaterialAutoCompleteTextView
-      android:id="@+id/dd_recipients"
+  <TextView
+      android:id="@+id/tv_recipients"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Recipients:"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:layout_marginTop="16dp"
+      tools:ignore="HardcodedText" />
+
+  <Spinner
+      android:id="@+id/spinner_recipients"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      android:hint="Select recipient"
+      android:layout_marginTop="8dp"
       android:textColorHint="#546E7A"
-      android:minHeight="48dp"
-      android:popupTheme="@style/Widget.MaterialComponents.PopupMenu" />
+      android:minHeight="48dp" />
 
   <Button
       android:id="@+id/btn_send"

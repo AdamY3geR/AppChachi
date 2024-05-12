@@ -1,4 +1,4 @@
-package com.example.appchachi;
+package com.example.appchachi.Fragments;
 
 
 import android.app.Activity;
@@ -16,23 +16,29 @@ import android.Manifest;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.appchachi.Fire;
+import com.example.appchachi.R;
 
 import java.util.List;
 
-public class MedicAdapter extends ArrayAdapter<Medic> {
+/**
+ * Adapter class for displaying fire department personnel information.
+ */
+public class FireAdapter extends ArrayAdapter<Fire> {
     private static final int REQUEST_CALL_PHONE_PERMISSION = 1;
     Context context;
-    List<Medic> objects;
+    List<Fire> objects;
+
 
     /**
-     * Constructor for the MedicAdapter.
+     * Constructor for the FireAdapter.
      *
      * @param context The context of the application.
      * @param resource The resource ID for a layout file containing a TextView to use when instantiating views.
      * @param textViewResourceId The ID of the TextView within the layout resource to be populated.
-     * @param objects The list of medical personnel to be displayed.
+     * @param objects The list of fire department personnel to be displayed.
      */
-    public MedicAdapter(Context context, int resource, int textViewResourceId, List<Medic> objects) {
+    public FireAdapter(Context context, int resource, int textViewResourceId, List<Fire> objects) {
         super(context, resource, textViewResourceId, objects);
 
         this.context=context;
@@ -40,7 +46,7 @@ public class MedicAdapter extends ArrayAdapter<Medic> {
     }
 
     /**
-     * Called when the ListView needs a new view to display a medical personnel.
+     * Called when the ListView needs a new view to display a fire department personnel.
      *
      * @param position The position of the item within the adapter's data set.
      * @param convertView The old view to reuse, if possible.
@@ -56,7 +62,7 @@ public class MedicAdapter extends ArrayAdapter<Medic> {
         TextView tvMemberPhone = (TextView)view.findViewById(R.id.tv_memberPhone);
         ImageButton ibtnCall = (ImageButton)view.findViewById(R.id.ibtn_call);
         ImageButton ibtnWhatsapp = (ImageButton)view.findViewById(R.id.ibtn_whatsapp);
-        Medic temp = objects.get(position);
+        Fire temp = objects.get(position);
 
         ibtnCall.setOnClickListener(new View.OnClickListener() {
             /**
@@ -71,7 +77,8 @@ public class MedicAdapter extends ArrayAdapter<Medic> {
                         != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions((Activity) context,
                             new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PHONE_PERMISSION);
-                } else {
+                }
+                else{
                     Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
                     if (context != null)
                         context.startActivity(dialIntent);
@@ -92,9 +99,10 @@ public class MedicAdapter extends ArrayAdapter<Medic> {
             }
         });
 
-        // Set text for member name and phone
+
         tvMemberName.setText(String.valueOf(temp.getName()));
         tvMemberPhone.setText(String.valueOf(temp.getPhone()));
+
 
         return view;
     }
