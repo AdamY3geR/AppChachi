@@ -3,14 +3,10 @@
  */
 package com.example.appchachi;
 
-//todo - enabling broadcast+notification
 //todo - after adding authentication that it will add automatically to the lv
-//todo - instead of after a announcement check who neeed to get a notification, each phone will have a servce that always look for a new announcement and the make its own notofications
-
-//todo - add remember me after login
-//todo - add no same email
-//todo - add forgot password
-
+//todo - instead of after a announcement check who need to get a notification, each phone will have a service that always look for a new announcement and the make its own notification
+//todo - delete all unnecessary values of the member types
+//todo - delete map fragment and related things
 public class Member {
 
     // Member attributes

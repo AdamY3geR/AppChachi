@@ -16,6 +16,13 @@
                 android:title="Announcements"
                 tools:ignore="HardcodedText" />
 
+            <item
+                android:id="@+id/action_logout"
+                android:title="Logout"
+                app:showAsAction="always"
+                tools:ignore="AlwaysShowAction,HardcodedText" />
+
+
         </menu>
     </item>
 

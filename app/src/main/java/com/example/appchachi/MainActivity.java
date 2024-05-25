@@ -1,24 +1,28 @@
 package com.example.appchachi;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.appchachi.Announcements.AnnouncementActivity;
+import com.example.appchachi.Announcements.AnnouncementService;
 import com.example.appchachi.Fragments.FireFragment;
 import com.example.appchachi.Fragments.MapFragment;
 import com.example.appchachi.Fragments.MedicFragment;
 import com.example.appchachi.Fragments.SecurityFragment;
 import com.example.appchachi.databinding.ActivityMainBinding;
+import com.example.appchachi.loginup.LoginActivity;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * Main activity of the application responsible for managing fragments and navigation.
@@ -26,7 +30,6 @@ import com.google.firebase.FirebaseApp;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-
 
     /**
      * Called when the activity is starting.
@@ -40,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         replaceFragment(new SecurityFragment());
 
+        // Start the AnnouncementService
+        Intent serviceIntent = new Intent(this, AnnouncementService.class);
+        startService(serviceIntent);
 
         // Initialize Firebase
         FirebaseApp.initializeApp(this);
@@ -66,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
             replaceFragment(new SecurityFragment());
         }
 
-
         // Set up bottom navigation
         binding.bottomNavigation.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -89,15 +94,9 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-
-
-
-
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
-
 
     /**
      * Initialize the contents of the Activity's standard options menu.
@@ -105,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
      * @param menu The options menu in which items are placed.
      * @return You must return true for the menu to be displayed.
      */
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -125,7 +123,25 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
+        if (item.getItemId() == R.id.action_logout) {
+            // Call the logout method
+            logout();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Logout method.
+     */
+    private void logout() {
+        // Sign out from Firebase
+        FirebaseAuth.getInstance().signOut();
+
+        // Redirect to LoginActivity
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     /**

@@ -21,7 +21,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Password field -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutPassword"
         android:layout_width="match_parent"
@@ -39,12 +38,32 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <CheckBox
+        android:id="@+id/checkbox_remember_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutPassword"
+        android:layout_marginTop="1dp"
+        android:text="Remember Me"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btn_forgot_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutPassword"
+        android:layout_toRightOf="@id/checkbox_remember_me"
+        android:layout_marginTop="1dp"
+        android:layout_marginLeft="80dp"
+        android:text="Forgot Password?"
+        tools:ignore="HardcodedText" />
+
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layoutPassword"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="70dp"
         android:text="Log In"
         tools:ignore="HardcodedText,VisualLintButtonSize" />
 
