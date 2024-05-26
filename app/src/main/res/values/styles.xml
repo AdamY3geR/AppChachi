@@ -1,8 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <!-- Other style attributes for your theme -->
+
+    <!-- Base application theme. -->
+    <style name="Base.Theme.AppChachi" parent="Theme.Material3.DayNight.NoActionBar">
+       <item name="colorPrimary">@color/white</item>
+
+        <!-- Add PopupOverlay style -->
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
     </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <!-- PopupMenu style -->
+    <style name="PopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@drawable/menu_background</item>
+        <!-- Other popup menu attributes -->
+    </style>
+
+    <!-- AppChachi theme -->
+    <style name="Theme.AppChachi" parent="Base.Theme.AppChachi" />
+
+    <!-- Define AppTheme.BlackBackground style -->
+    <style name="AppTheme.BlackBackground" parent="Theme.AppChachi">
+        <!-- Add attributes for black background theme -->
+        <!-- For example: -->
+        <item name="android:windowBackground">@color/black</item>
+    </style>
+
 </resources>

@@ -8,21 +8,22 @@
         android:title="Menu"
         app:showAsAction="always"
         android:icon="@drawable/baseline_menu_24"
+        android:titleTextColor="#FFFFFF"
         tools:ignore="AlwaysShowAction,HardcodedText">
 
         <menu>
             <item
                 android:id="@+id/action_announcement"
                 android:title="Announcements"
+                android:titleTextColor="#FFFFFF"
                 tools:ignore="HardcodedText" />
 
             <item
                 android:id="@+id/action_logout"
                 android:title="Logout"
                 app:showAsAction="always"
+                android:titleTextColor="#FFFFFF"
                 tools:ignore="AlwaysShowAction,HardcodedText" />
-
-
         </menu>
     </item>
 

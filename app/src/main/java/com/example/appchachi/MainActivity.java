@@ -7,7 +7,6 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -90,8 +89,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(findViewById(R.id.toolbar)); // Set the toolbar
     }
 
     /**
@@ -152,4 +150,3 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 }
-

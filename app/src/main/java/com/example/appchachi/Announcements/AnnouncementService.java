@@ -33,7 +33,7 @@ public class AnnouncementService extends Service {
 
     private static final String TAG = "AnnouncementService";
     private static final String CHANNEL_ID = "announcement_channel";
-    private static final int CHECK_INTERVAL = 1000; // Check every 1 second
+    private static final int CHECK_INTERVAL = 3000; // Check every 1 second
     private Handler handler;
     private Runnable runnable;
     private DatabaseReference announcementsRef;
@@ -128,26 +128,48 @@ public class AnnouncementService extends Service {
                     if (announcementId != null && !processedAnnouncementIds.contains(announcementId)) {
                         Announcement announcement = snapshot.getValue(Announcement.class);
                         if (announcement != null && announcement.getRecipients() != null &&
-                                !announcement.getFrom().equals(currentUserEmail) &&
                                 (announcement.getRecipients().contains("All") || announcement.getRecipients().contains(currentUserMemberType))) {
-                            newAnnouncements.add(announcement);
-                            processedAnnouncementIds.add(announcementId);
-                            Log.d(TAG, "New announcement found: " + announcement.getMessage());
+                            if (announcement.getFrom() != null) {
+                                checkSenderEmail(announcement, currentUserEmail, newAnnouncements, announcementId);
+                            }
                         }
                     }
-                }
-
-                if (!newAnnouncements.isEmpty()) {
-                    showNotification(newAnnouncements);
-                    lastCheckedTime = System.currentTimeMillis();
-                } else {
-                    Log.d(TAG, "No new announcements found");
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e(TAG, "Database error: " + databaseError.getMessage());
+            }
+        });
+    }
+
+    private void checkSenderEmail(Announcement announcement, String currentUserEmail, List<Announcement> newAnnouncements, String announcementId) {
+        userRef.orderByChild("name").equalTo(announcement.getFrom()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean isSenderCurrentUser = false;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String senderEmail = snapshot.child("email").getValue(String.class);
+                    if (senderEmail != null && senderEmail.equals(currentUserEmail)) {
+                        isSenderCurrentUser = true;
+                        break;
+                    }
+                }
+                if (!isSenderCurrentUser) {
+                    newAnnouncements.add(announcement);
+                }
+                processedAnnouncementIds.add(announcementId);
+
+                if (!newAnnouncements.isEmpty()) {
+                    showNotification(newAnnouncements);
+                    lastCheckedTime = System.currentTimeMillis();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e(TAG, "Failed to get sender email: " + databaseError.getMessage());
             }
         });
     }

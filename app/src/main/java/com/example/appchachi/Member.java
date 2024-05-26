@@ -4,8 +4,8 @@
 package com.example.appchachi;
 
 //todo - after adding authentication that it will add automatically to the lv
-//todo - the user who sent a announcement wont get the announcement
 //todo - delete all unnecessary values of the member types
+//todo - change color of menu text to white
 
 public class Member {
 
