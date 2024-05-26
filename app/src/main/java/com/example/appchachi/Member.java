@@ -4,9 +4,9 @@
 package com.example.appchachi;
 
 //todo - after adding authentication that it will add automatically to the lv
-//todo - instead of after a announcement check who need to get a notification, each phone will have a service that always look for a new announcement and the make its own notification
+//todo - the user who sent a announcement wont get the announcement
 //todo - delete all unnecessary values of the member types
-//todo - delete map fragment and related things
+
 public class Member {
 
     // Member attributes

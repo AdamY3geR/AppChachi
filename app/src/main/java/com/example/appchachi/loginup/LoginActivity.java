@@ -33,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
     public static final String PREFS_NAME = "com.example.appchachi.loginup.PREFS";
     public static final String REMEMBER_ME_KEY = "remember_me";
     private static final String MEMBER_TYPE_KEY = "memberType";
+    private static final String LAST_USER_EMAIL_KEY = "last_user_email";
+    private static final String LAST_USER_ID_KEY = "last_user_id";
     private FirebaseAuth auth;
 
     @Override
@@ -95,6 +97,8 @@ public class LoginActivity extends AppCompatActivity {
                             sharedPreferences.edit()
                                     .putString("email", email)
                                     .putString("password", password)
+                                    .putString(LAST_USER_EMAIL_KEY, email)
+                                    .putString(LAST_USER_ID_KEY, currentUserId)
                                     .apply();
                             // Save checkbox state
                             sharedPreferences.edit()
@@ -164,8 +168,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     private void navigateToMainActivity(String memberType) {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);

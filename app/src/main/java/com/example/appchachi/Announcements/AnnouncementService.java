@@ -25,7 +25,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class AnnouncementService extends Service {
 
@@ -38,6 +40,8 @@ public class AnnouncementService extends Service {
     private DatabaseReference userRef;
     private String currentUserMemberType;
     private long lastCheckedTime;
+    private SharedPreferences sharedPreferences;
+    private Set<String> processedAnnouncementIds;
 
     @Nullable
     @Override
@@ -51,14 +55,18 @@ public class AnnouncementService extends Service {
         announcementsRef = FirebaseDatabase.getInstance().getReference("announcements");
         userRef = FirebaseDatabase.getInstance().getReference("members");
         lastCheckedTime = System.currentTimeMillis();
+        sharedPreferences = getSharedPreferences("com.example.appchachi.loginup.PREFS", MODE_PRIVATE);
+        processedAnnouncementIds = new HashSet<>();
         handler = new Handler();
         runnable = new Runnable() {
             @Override
             public void run() {
                 try {
                     if (currentUserMemberType == null) {
+                        Log.d(TAG, "Member type is null, fetching...");
                         getCurrentUserMemberType();
                     } else {
+                        Log.d(TAG, "Checking for new announcements...");
                         checkForNewAnnouncements();
                     }
                 } catch (Exception e) {
@@ -74,6 +82,7 @@ public class AnnouncementService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(TAG, "Service started");
         return START_STICKY;
     }
 
@@ -81,19 +90,18 @@ public class AnnouncementService extends Service {
     public void onDestroy() {
         super.onDestroy();
         handler.removeCallbacks(runnable);
+        Log.d(TAG, "Service destroyed");
     }
 
     private void getCurrentUserMemberType() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
-            String currentUserEmail = currentUser.getEmail();
-            userRef.orderByChild("email").equalTo(currentUserEmail).addListenerForSingleValueEvent(new ValueEventListener() {
+        String lastUserId = sharedPreferences.getString("last_user_id", null);
+        if (lastUserId != null) {
+            Log.d(TAG, "Last user ID found: " + lastUserId);
+            userRef.child(lastUserId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        currentUserMemberType = snapshot.child("memberType").getValue(String.class);
-                        Log.d(TAG, "Current user member type: " + currentUserMemberType);
-                    }
+                    currentUserMemberType = dataSnapshot.child("memberType").getValue(String.class);
+                    Log.d(TAG, "Current user member type: " + currentUserMemberType);
                 }
 
                 @Override
@@ -101,6 +109,8 @@ public class AnnouncementService extends Service {
                     Log.e(TAG, "Failed to get user member type: " + databaseError.getMessage());
                 }
             });
+        } else {
+            Log.e(TAG, "No last user ID found in shared preferences");
         }
     }
 
@@ -111,19 +121,27 @@ public class AnnouncementService extends Service {
                 List<Announcement> newAnnouncements = new ArrayList<>();
                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 String currentUserEmail = currentUser != null ? currentUser.getEmail() : "";
+                Log.d(TAG, "Checking announcements for user: " + currentUserEmail);
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Announcement announcement = snapshot.getValue(Announcement.class);
-                    if (announcement != null && announcement.getRecipients() != null &&
-                            !announcement.getFrom().equals(currentUserEmail) &&
-                            (announcement.getRecipients().contains("All") || announcement.getRecipients().contains(currentUserMemberType))) {
-                        newAnnouncements.add(announcement);
+                    String announcementId = snapshot.getKey();
+                    if (announcementId != null && !processedAnnouncementIds.contains(announcementId)) {
+                        Announcement announcement = snapshot.getValue(Announcement.class);
+                        if (announcement != null && announcement.getRecipients() != null &&
+                                !announcement.getFrom().equals(currentUserEmail) &&
+                                (announcement.getRecipients().contains("All") || announcement.getRecipients().contains(currentUserMemberType))) {
+                            newAnnouncements.add(announcement);
+                            processedAnnouncementIds.add(announcementId);
+                            Log.d(TAG, "New announcement found: " + announcement.getMessage());
+                        }
                     }
                 }
 
                 if (!newAnnouncements.isEmpty()) {
                     showNotification(newAnnouncements);
                     lastCheckedTime = System.currentTimeMillis();
+                } else {
+                    Log.d(TAG, "No new announcements found");
                 }
             }
 
@@ -144,7 +162,7 @@ public class AnnouncementService extends Service {
         for (Announcement announcement : newAnnouncements) {
             Intent intent = new Intent(this, AnnouncementActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // Ensures a new instance isn't created
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                     .setSmallIcon(R.drawable.baseline_security_24) // Use your actual icon resource
@@ -155,6 +173,7 @@ public class AnnouncementService extends Service {
                     .setAutoCancel(true);
 
             try {
+                Log.d(TAG, "Showing notification for: " + announcement.getMessage());
                 notificationManager.notify((int) (Math.random() * 10000), builder.build());
             } catch (Exception e) {
                 Log.e(TAG, "Failed to show notification: " + e.getMessage(), e);

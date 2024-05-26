@@ -1,7 +1,6 @@
 package com.example.appchachi;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +15,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.appchachi.Announcements.AnnouncementActivity;
 import com.example.appchachi.Announcements.AnnouncementService;
 import com.example.appchachi.Fragments.FireFragment;
-import com.example.appchachi.Fragments.MapFragment;
 import com.example.appchachi.Fragments.MedicFragment;
 import com.example.appchachi.Fragments.SecurityFragment;
 import com.example.appchachi.databinding.ActivityMainBinding;
@@ -43,12 +41,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         replaceFragment(new SecurityFragment());
 
+        // Initialize Firebase
+        FirebaseApp.initializeApp(this);
+
         // Start the AnnouncementService
         Intent serviceIntent = new Intent(this, AnnouncementService.class);
         startService(serviceIntent);
-
-        // Initialize Firebase
-        FirebaseApp.initializeApp(this);
 
         String memberType = getIntent().getStringExtra("MEMBER_TYPE");
         if (memberType != null) {
@@ -82,8 +80,6 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new MedicFragment();
             } else if (itemId == R.id.navi_fire) {
                 fragment = new FireFragment();
-            } else if (itemId == R.id.navi_map) {
-                fragment = new MapFragment();
             }
 
             // Replace the current fragment with the selected fragment
@@ -156,3 +152,4 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 }
+
