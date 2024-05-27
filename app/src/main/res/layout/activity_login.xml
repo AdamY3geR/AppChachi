@@ -10,6 +10,8 @@
         android:id="@+id/layoutEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
         android:layout_marginTop="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -28,6 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layoutEmail"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
         android:layout_marginTop="16dp">
 
         <com.google.android.material.textfield.TextInputEditText

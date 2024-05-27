@@ -102,6 +102,12 @@ public class AnnouncementService extends Service {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     currentUserMemberType = dataSnapshot.child("memberType").getValue(String.class);
                     Log.d(TAG, "Current user member type: " + currentUserMemberType);
+                    // Check if currentUserMemberType is not null, then proceed to check for new announcements
+                    if (currentUserMemberType != null) {
+                        checkForNewAnnouncements();
+                    } else {
+                        Log.e(TAG, "Current user member type is null");
+                    }
                 }
 
                 @Override
@@ -113,6 +119,7 @@ public class AnnouncementService extends Service {
             Log.e(TAG, "No last user ID found in shared preferences");
         }
     }
+
 
     private void checkForNewAnnouncements() {
         announcementsRef.orderByChild("timestamp").startAt(lastCheckedTime).addListenerForSingleValueEvent(new ValueEventListener() {

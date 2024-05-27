@@ -11,14 +11,18 @@
         android:id="@+id/layoutEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
         android:layout_marginTop="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
-            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
+            android:textColor="@color/black"
+            android:hint="@string/email"
+            app:hintTextColor="@color/black"
+            tools:ignore="TextContrastCheck,VisualLintTextFieldSize"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -28,6 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layoutEmail"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
         android:layout_marginTop="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -36,6 +42,8 @@
             android:layout_height="wrap_content"
             android:hint="Password"
             android:inputType="textPassword"
+            android:textColorHint="@color/black"
+            android:backgroundTint="@color/black"
             tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -46,6 +54,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layoutPassword"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
         android:layout_marginTop="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -53,6 +63,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/name"
+            android:textColorHint="@color/black"
+            android:backgroundTint="@color/black"
             tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -63,6 +75,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layoutName"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
         android:layout_marginTop="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -70,6 +84,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Phone"
+            android:textColorHint="@color/black"
+            android:backgroundTint="@color/black"
             tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -80,6 +96,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layoutPhone"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
         android:layout_marginTop="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -87,6 +105,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="User ID"
+            android:textColorHint="@color/black"
+            android:backgroundTint="@color/black"
             tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -100,6 +120,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_below="@id/layoutUserID"
         android:layout_marginTop="16dp"
+        android:textColor="@color/black"
         tools:ignore="HardcodedText" />
 
     <!-- Member Type dropdown -->
@@ -109,23 +130,22 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_memberType"
         android:layout_marginTop="8dp"
-        android:textColorHint="#546E7A"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        android:popupBackground="@color/black"
+        android:dropDownVerticalOffset="48dp"
+        android:dropDownWidth="match_parent"
+        android:spinnerMode="dropdown"
+        android:textColor="@color/white" />
 
-    <!-- Admin checkbox -->
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/cb_admin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/spinner_memberType"
-        android:text="Admin" />
 
     <Button
         android:id="@+id/btn_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/cb_admin"
+        android:layout_below="@id/spinner_memberType"
         android:layout_marginTop="16dp"
-        android:text="Sign Up" />
+        android:text="Sign Up"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/black"/>
 
 </RelativeLayout>

@@ -3,8 +3,6 @@
  */
 package com.example.appchachi;
 
-//todo - after adding authentication that it will add automatically to the lv
-//todo - delete all unnecessary values of the member types
 
 public class Member {
 
@@ -30,6 +28,10 @@ public class Member {
         this.phone = phone;
         this.email = email;
         this.memberType = memberType;
+    }
+
+    public Member() {
+
     }
 
     // Getter and setter methods for member attributes

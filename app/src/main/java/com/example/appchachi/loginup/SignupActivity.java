@@ -14,6 +14,8 @@ import com.example.appchachi.Medic;
 import com.example.appchachi.Member;
 import com.example.appchachi.R;
 import com.example.appchachi.Security;
+
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,11 +65,6 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Validates the input fields.
-     *
-     * @return True if inputs are valid, otherwise false.
-     */
     private boolean validateInputs() {
         // Perform validation for each input field
         // Email
@@ -114,9 +111,6 @@ public class SignupActivity extends AppCompatActivity {
         return true;
     }
 
-    /**
-     * Performs the signup operation.
-     */
     private void performSignup() {
         // Retrieve values from input fields
         String email = etEmail.getText() != null ? etEmail.getText().toString().trim() : "";

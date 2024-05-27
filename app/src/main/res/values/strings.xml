@@ -17,6 +17,7 @@
     <string name="admin">Admin</string>
     <string name="member_type">Member Type</string>
     <string name="name">Name</string>
+    <string name="email">Email</string>
 
     <string-array name="member_types_array">
         <item>Security</item>

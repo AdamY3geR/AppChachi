@@ -7,7 +7,6 @@
     android:clickable="true"
     android:focusable="true">
 
-
     <TextView
         android:id="@+id/tv_memberName"
         android:layout_width="164dp"
@@ -25,7 +24,7 @@
         android:id="@+id/tv_memberPhone"
         android:layout_width="144dp"
         android:layout_height="53dp"
-        android:text="@string/phone_number"
+        android:text="Phone Number"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,6 +60,5 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/whatsapp"
         android:scaleType="fitCenter"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
