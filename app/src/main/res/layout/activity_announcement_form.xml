@@ -12,6 +12,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="Message:"
+      android:textColor="@color/black"
       android:textAppearance="?android:attr/textAppearanceMedium"
       tools:ignore="HardcodedText" />
 
@@ -23,6 +24,8 @@
       android:hint="Enter message"
       android:inputType="textMultiLine"
       android:minLines="2"
+      android:textColorHint="@color/black"
+      android:textColor="@color/black"
       tools:ignore="Autofill,HardcodedText,TextContrastCheck,VisualLintTextFieldSize" />
 
   <TextView
@@ -32,22 +35,25 @@
       android:text="Recipients:"
       android:textAppearance="?android:attr/textAppearanceMedium"
       android:layout_marginTop="16dp"
-      tools:ignore="HardcodedText" />
+      tools:ignore="HardcodedText"
+      android:textColor="@color/black"/>
 
   <Spinner
       android:id="@+id/spinner_recipients"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="8dp"
-      android:textColorHint="#546E7A"
-      android:minHeight="48dp" />
+      android:minHeight="48dp"
+      />
 
   <Button
       android:id="@+id/btn_send"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="Send"
+      android:textColor="@color/white"
       android:layout_marginTop="16dp"
-      tools:ignore="HardcodedText" />
+      tools:ignore="HardcodedText"
+      android:backgroundTint="@color/black"/>
 
 </LinearLayout>

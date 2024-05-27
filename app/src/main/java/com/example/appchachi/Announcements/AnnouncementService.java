@@ -33,7 +33,7 @@ public class AnnouncementService extends Service {
 
     private static final String TAG = "AnnouncementService";
     private static final String CHANNEL_ID = "announcement_channel";
-    private static final int CHECK_INTERVAL = 3000; // Check every 1 second
+    private static final int CHECK_INTERVAL = 1000; // Check every 1 second
     private Handler handler;
     private Runnable runnable;
     private DatabaseReference announcementsRef;

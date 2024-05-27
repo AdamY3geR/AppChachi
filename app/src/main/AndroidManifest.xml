@@ -22,7 +22,7 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/baseline_security_24"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.BlackBackground"
+        android:theme="@style/AppTheme.WhiteBackground"
         tools:targetApi="31">
         <activity
             android:name=".loginup.LoginActivity"
@@ -77,13 +77,7 @@
         -->
 
         <!-- Declare the AnnouncementReceiver if needed for broadcast intents -->
-        <receiver
-            android:name=".Announcements.AnnouncementReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.example.appchachi.ANNOUNCEMENT_ACTION" />
-            </intent-filter>
-        </receiver>
+
     </application>
 
 </manifest>

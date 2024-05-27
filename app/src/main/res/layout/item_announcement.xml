@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:padding="0dp"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textStyle="bold" />
 
         <!-- TextView for colon -->
@@ -31,7 +31,7 @@
             android:padding="8dp"
             android:text=":"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textStyle="bold"
             tools:ignore="HardcodedText" />
     </LinearLayout>
@@ -43,6 +43,6 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/black" />
 
 </LinearLayout>
